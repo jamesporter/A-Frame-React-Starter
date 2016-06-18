@@ -32,7 +32,7 @@ class SimpleVisualisationScene extends React.Component {
     coordsToPosition(coords){
         return `${coords.x} ${coords.y} ${coords.z}`
     }
-    
+
   renderValue(idx, d){
       const length = this.state.data.length;
 
