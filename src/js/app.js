@@ -4,6 +4,9 @@ import {Animation, Entity, Scene} from 'aframe-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+//This seems to work but through side effect...
+import TextComponent from "aframe-text-component"
+
 import Camera from './components/Camera';
 import Cursor from './components/Cursor';
 import Sky from './components/Sky';
@@ -34,11 +37,27 @@ class BoilerplateScene extends React.Component {
         <Entity light={{type: 'directional', intensity: 0.5}} position={[-1, 1, 0]}/>
         <Entity light={{type: 'directional', intensity: 1}} position={[1, 1, 0]}/>
 
+          <Entity text="text: What's up?" material={{color: 'orange'}} position="-5 0 -5">
+              <Animation attribute="rotation" dur="5000" repeat="indefinite" to="0 360 360"/>
+          </Entity>
+
         <Entity geometry="primitive: box" material={{color: this.state.color}}
                 onClick={this.changeColor}
                 position="0 0 -5">
           <Animation attribute="rotation" dur="5000" repeat="indefinite" to="0 360 360"/>
         </Entity>
+
+          <Entity geometry="primitive: box" material={{color: this.state.color}}
+                  onMouseEnter={this.changeColor} onMouseLeave={this.changeColor}
+                  position="0 3 -5">
+              <Animation attribute="rotation" dur="5000" repeat="indefinite" to="360 360 0"/>
+          </Entity>
+
+          <Entity geometry="primitive: box" material={{color: this.state.color}}
+                  onClick={this.changeColor}
+                  position="3 0 -5">
+              <Animation attribute="rotation" dur="5000" repeat="indefinite" to="0 360 360"/>
+          </Entity>
       </Scene>
     );
   }
