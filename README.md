@@ -12,8 +12,6 @@ npm run serve
 
 Now open [this](http://localhost:5555)
 
-### Publishing to GitHub Pages
+### What is this?
 
-```bash
-npm run ghpages
-```
+A little proof of concept: could interactive data visualisation be done efficiently in Recat + A-Frame. The answer appears to be yes.
