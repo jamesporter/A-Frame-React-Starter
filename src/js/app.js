@@ -17,7 +17,8 @@ class SimpleVisualisationScene extends React.Component {
     this.state = {
       data: [1.0, 2.0, 2.1, 0.4, 1.2, 3.4, 2.5],
       labels: ["A", "B", "C", "D", "E", "F", "G"],
-        selection: null
+        selection: null,
+        detail: null
     }
   }
 
@@ -27,6 +28,10 @@ class SimpleVisualisationScene extends React.Component {
 
     clearSelection(){
         this.setState({selection: null})
+    }
+
+    setDetail(selection){
+        this.setState({detail: selection})
     }
 
     coordsToPosition(coords){
@@ -61,6 +66,7 @@ class SimpleVisualisationScene extends React.Component {
                   position={this.coordsToPosition(coords)}
                   onMouseEnter={() => this.setSelection(idx)}
                   onMouseLeave={() => this.clearSelection(idx)}
+                  onClick={()=> this.setDetail(idx)}
           >
               <Animation attribute="scale" dur="5000"from ="1 0 1" to="1 1 1"/>
               <Animation attribute="position" dur="5000" from ={this.coordsToPosition(startCoords)} to={this.coordsToPosition(coords)}/>
@@ -72,6 +78,39 @@ class SimpleVisualisationScene extends React.Component {
     )
   }
 
+  renderDetail(){
+      if(this.state.detail){
+          const d = this.state.data[this.state.detail];
+          const l = this.state.labels[this.state.detail];
+          const coords = {
+            x: 0,
+            y: 4*d/2 - 2,
+            z: -6
+          };
+
+          const textCoords = {
+              x: 0,
+              y: -5,
+              z: -6
+          };
+
+          return (
+            [<Entity geometry={`primitive: box; width:4; height: ${4*d}; depth: 0.1;`}
+                    material={{color: "white"}}
+                    position={this.coordsToPosition(coords)}
+                    onClick={()=> this.setDetail(null)} />,
+                <Entity text={"text: " + this.state.labels[this.state.detail]}
+                        material={{color: "white"}}
+                        position={this.coordsToPosition(textCoords)}
+                        scale="3 3 1"
+                />
+                ]
+          );
+      } else {
+          return "";
+      }
+  }
+
   render () {
     return (
       <Scene>
@@ -80,6 +119,7 @@ class SimpleVisualisationScene extends React.Component {
         <Sky/>
 
           {this.state.data.map((data, i) => this.renderValue(i, data))}
+          {this.renderDetail()}
 
         <Entity light={{type: 'ambient', color: '#888'}}/>
         <Entity light={{type: 'directional', intensity: 0.5}} position={[-1, 1, 0]}/>
