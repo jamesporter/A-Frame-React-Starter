@@ -48,7 +48,7 @@ class SimpleVisualisationScene extends React.Component {
       };
 
       const textCoords = {
-          x: 15.0* idx/length - 7.5,
+          x: 15.0* idx/length - 7.75,
           y: -3,
           z: -2
       };
@@ -89,7 +89,7 @@ class SimpleVisualisationScene extends React.Component {
           };
 
           const textCoords = {
-              x: 0,
+              x: -0.5,
               y: -5,
               z: -6
           };
